@@ -2,19 +2,22 @@
  * @class Controller
  * @author Liu Junwei
  * @brief This class is used to handle some interactive logic in the game, such as parsing the user's input,
- *        print the help documentation.
+ *        print the help documentation etc.
  */
 
 #include <iostream>
+#include <windows.h> //sleep()
 #include "Controller.h"
 #include "Player.h"
 #include "Dice.h"
-#include <windows.h> //sleep()
 
 using namespace std;
 
 // Constructor
-Controller::Controller(){}
+Controller::Controller(int playerTotal, int roundTotal){
+	this->playerTotal = playerTotal;
+	this->roundTotal = roundTotal;
+}
 
 // Destructo
 Controller::~Controller(){}
@@ -26,7 +29,10 @@ void Controller::newLine(){
 
 // Quit the program when user input 'Q' or 'q'
 void Controller::quit(){
-    cout << "*********Game over. Hope you had a good time!*********";
+    newLine();
+    cout << "******************************************************" << endl;
+    cout << "*        Game over. Hope you had a good time!        *" << endl;
+    cout << "******************************************************" << endl;
 	exit(0);
 }
 
@@ -50,20 +56,21 @@ void Controller::printIntro(){
 	newLine();
 }
 
-
 /**
- * @brief Accept the user's input and return only when the input is the expectedInstr or its lowercase
- * @param expectedInstr - The instruction which is expected of this process
+ * @brief Accept the user's input and handle it, it returns only when the input is the expectedInstr or its lowercase
+ * @param expectedInstr - The instruction which is expected.
  * @param promt - The prompt that will be printed to mention the user what to input
  */
-void Controller::acceptInstr(char expectedInstr, char* promt){
+void Controller::acceptInstr(char expectedInstr, string promt){
+    string input;
     char instr;
 	char uppercase = expectedInstr;
 	char lowercase = expectedInstr+32;
 
 	// Read instruction
 	cout << promt;
-	cin >> instr;
+	cin >> input;
+    instr = input[0];
 
 	// Handle instruction
 	while(1){
@@ -85,18 +92,23 @@ void Controller::acceptInstr(char expectedInstr, char* promt){
 		cin >> instr;
 	}
 }
+
 /**
- * @brief It's used to handle a whole round of a player, including asking for an instruction, accept and
- * handle it etc.
+ * @brief It's used to handle cetarin player's certain round, including asking for an instruction, accept and
+ * 		  handle it etc.
  * @param player - The player of this round
- * @param dice - The dice object that will be rolled
  * @param roundNum - Index of the present round
  */ 
-void Controller::handleOneRound(Player player, Dice dice, int roundNum){
+void Controller::handleOneRound(Player& player,int roundNum){
     // Print prompt
-	cout << "*********************Player";
-	cout << roundNum;
-	cout << "'s Round******************";
+    cout << "******************************************************" << endl;
+	cout << " *               ";
+    cout << player.getName();
+    cout << "'s Round ";
+    cout << roundNum+1;
+    cout << "                  *" <<endl;
+    cout << "******************************************************" << endl;
+    newLine();
 
 	// Accept user Input
 	acceptInstr('R',"Input 'R/r' to roll:");
@@ -107,33 +119,60 @@ void Controller::handleOneRound(Player player, Dice dice, int roundNum){
 	while(count < 6){
 		Sleep(500);
 		cout << " *******";
+        count++;
 	}
 	newLine();
 
 	// Roll the dice and record
-	int diceNum = dice.roll();
+	int diceNum = this-> dice.roll();
 	cout << "You get ";
 	cout << diceNum;
 	cout <<" !"<<endl;
-	player.setDiceNum(diceNum, roundNum-1);
+	player.setDiceNum(diceNum, roundNum);
 	newLine();
+	newLine();
+	
+    Sleep(1000);
 }
 
-void Controller::determineSuccess(Player player1, Player player2){
-    int res1 = player1.getResult();
-    int res2 = player2.getResult();
-    cout << "Player1's final goal is ";
-    cout << res1 << endl;
-    cout << "Player2's final goal is ";
-    cout << res2 << endl;
+/**
+ * @brief It's used to control the main process of the game, without announcing the result
+ * @param Params are the players paticipated.Can be replaced by a set of players.
+ */ 
+void Controller::gameProcess(Player& player1, Player& player2){
+	cout << "******************************************************" << endl;
+	cout << " *                Game Begins!                      * " << endl;
+	cout << "******************************************************" << endl;
+	// Players roll alternately every round
+	for(int i = 0 ; i < roundTotal; i++){
+			handleOneRound(player1,i);
+			handleOneRound(player2,i);
+	}
+}
 
-    int diff = player1.getResult() - player2.getResult();
+/**
+ * @brief It's used to announce the goal of each player and the final result
+ * @param res1 - The goal of the player1
+ * @param res2 - The goal of the player2
+ */ 
+void Controller::determineSuccess(int res1, int res2){
+	cout << "******************************************************" << endl;
+	newLine();
+	cout << " Player1's final goal is ";
+	cout << res1 << endl;
+	newLine();
+	cout << " Player2's final goal is ";
+	cout << res2 << endl;
+	newLine();
+	cout << "******************************************************" << endl;
+    int diff = res1 - res2;
     if (diff == 0){
-        cout << "It's a draw."<<endl;
+		cout << " *                   It's a draw.                   *"<< endl;
     }else if(diff > 0){
-        cout << "Player1 wins!"<< endl;
+		cout << " *                  Player1 wins!                   *"<< endl;
     }else{
-        cout << "Player2 wins!"<< endl;
-    }
+		cout << " *                   Player2 wins!                  *"<< endl;
+    }	
+	cout << "******************************************************" << endl;
 }
 

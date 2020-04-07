@@ -6,11 +6,10 @@ class Player2: public Player{
     public:
     Player2();
     ~Player2();
-    void setDiceNum(int,int){};
-    void setResult(int);
-    int getDiceNum(int);
+    void setDiceNum(int diceNum,int index);
+    int getDiceNum(int index);
     int getResult();
-    int calculateRes();
+    void calculateRes();
 };
 
 #endif
