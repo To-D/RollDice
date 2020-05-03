@@ -3,41 +3,24 @@
  * @author Liu Junwei
  */  
 #include <iostream>
-#include "Player.h"
-#include "Player1.h"
-#include "Player2.h"
-#include "Dice.h"
-#include "Controller.h"
+#include "Hall.h"
+#include "User.h"
+#include "DiceRolling.h"
 
 using namespace std;
 
 int main(){
-	//Initialize game controller: 2 player,2 rounds
-	Controller controller( 2, 2 );
+	// Initial game hall and two users
+	Hall hall;
+	User user1("User1"); 
+	User user2("User2");
 
-	//Print game introduction
-	controller.printIntro();
+	// Create a diceRolling game(0 is the index of "DiceRolling", in case of more kind of games)
+	DiceRolling diceRolling = hall.start(0);
+
+	// user1 and user2 enter the game
+	diceRolling.acceptPlayer(user1);
+	diceRolling.acceptPlayer(user2);
 	
-	//Accept user's input
-	controller.acceptInstr('S',"Input S/s to Start:");	
-
-	while(1){
-		// Start game.
-		// Initial two players
-		Player1 player1;
-		Player2 player2;
-
-		// Game Process
-		controller.gameProcess(player1,player2);
-		
-		// Calculate and announce the result
-		player1.calculateRes();
-		player2.calculateRes();
-		int res1 = Player(player1).getResult();
-		int res2 = Player(player2).getResult();
-		controller.determineSuccess(res1,res2);
-
-		cout << "Thank you for playing!" << endl;
-		controller.acceptInstr('S',"Input 'S/s' to play again or 'Q/q' to quit:");	
-	}
+	diceRolling.start();	
 }

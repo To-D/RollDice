@@ -6,6 +6,9 @@
  */ 
 #include "Player.h"
 #include <assert.h>
+#include <iostream>
+
+using namespace std;
 
 /**
  * @brief Set the diceNum array
@@ -33,7 +36,7 @@ int Player::getResult(){
 }
 
 string Player::getName(){
-    return this->name;
+    return this->name;    
 }
 
 void Player::calculateRes(){}

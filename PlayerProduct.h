@@ -1,11 +1,11 @@
 #include "Player.h"
-#ifndef Player2_H
-#define Player2_H
+#ifndef PlayerProduct_H
+#define PlayerProduct_H
 
-class Player2: public Player{
+class PlayerProduct: public Player{
     public:
-    Player2();
-    ~Player2();
+    PlayerProduct(string name);
+    ~PlayerProduct();
     void setDiceNum(int diceNum,int index);
     int getDiceNum(int index);
     int getResult();
