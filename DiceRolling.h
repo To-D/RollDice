@@ -21,6 +21,7 @@ class DiceRolling{
     int timesEachRound;
     int roundIndex;
     vector<string>winner;
+    vector<Player>players;
     Player* player1;
     Player* player2;
     Dice dice;
