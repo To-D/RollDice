@@ -1,5 +1,6 @@
 #include <string>
 
+
 #ifndef Player_H
 #define Player_H
 
@@ -11,6 +12,7 @@ class Player{
     int cap = 2;
     int result;
     string name;
+
 
     public:
     // Set function

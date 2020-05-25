@@ -10,6 +10,7 @@ using namespace std;
 
 class DiceRolling{
     public:
+    DiceRolling();
     DiceRolling(int playerTotal, int timesEachRound);
     ~DiceRolling();
     void acceptPlayer(User user);

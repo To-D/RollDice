@@ -15,7 +15,9 @@
 
 using namespace std;
 
-// Constructor
+// Constructors
+DiceRolling::DiceRolling(){}
+
 DiceRolling::DiceRolling(int playerTotal, int timesEachRound){
 	this -> capacity = playerTotal;
 	this -> timesEachRound = timesEachRound;
@@ -51,21 +53,11 @@ void DiceRolling::acceptPlayer(User user){
 			case '1':
 			currentNum ? player2 = new PlayerSum(name) : player1 = new PlayerSum(name);
 			currentNum++;
-			if(currentNum == 2){
-				newLine();
-				cout << "Players have been ready, our game is about to start" << endl;
-				newLine();
-			}
 			return;
 			
 			case '2':
 			currentNum ? player2 = new PlayerProduct(name) : player1 = new PlayerProduct(name);
 			currentNum++;
-			if(currentNum == 2){
-				newLine();
-				cout << "Players have been ready, our game is about to start" << endl;
-				newLine();
-			}
 			return;
 		}
 		cin >> instr;
@@ -74,8 +66,12 @@ void DiceRolling::acceptPlayer(User user){
 
 // Start the process of the DiceRolling game
 void DiceRolling::start(){
-	//Accept user's start instruction
-	acceptInstr('S',"Input S/s to Start:");	
+	if(currentNum < 2){
+		cout << "The number of players should be more than 1.";
+		return;
+	}
+	// //Accept user's start instruction
+	// acceptInstr('S',"Input S/s to Start:");	
 
 	while(1){
 		// start a game round

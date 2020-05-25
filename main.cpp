@@ -11,8 +11,12 @@
 using namespace std;
 
 int main(){
-	// // Initial game hall and two users
-	// Hall hall;
+	Hall hall;
+
+	hall.signUp();
+	
+	hall.startOneGame();
+		
 	// User user1("User1"); 
 	// User user2("User2");
 
@@ -25,12 +29,12 @@ int main(){
 	
 	// diceRolling.start();	
 
-	CalculateStrategy* CalculateStrategy1 = new SumAndDivide();
-	CalculateStrategy* CalculateStrategy2 = new ProductAndDivide();
-	CalculateStrategy* CalculateStrategy3 = new Average();
-	int res1 = 3;
-	int res2 = 4;
-	cout << CalculateStrategy1->calculateResult(res1,res2) << endl;
-	cout << CalculateStrategy2->calculateResult(res1,res2) << endl;
-	cout << CalculateStrategy3->calculateResult(res1,res2) << endl;
+	// CalculateStrategy* CalculateStrategy1 = new SumAndDivide();
+	// CalculateStrategy* CalculateStrategy2 = new ProductAndDivide();
+	// CalculateStrategy* CalculateStrategy3 = new Average();
+	// int res1 = 3;
+	// int res2 = 4;
+	// cout << CalculateStrategy1->calculateResult(res1,res2) << endl;
+	// cout << CalculateStrategy2->calculateResult(res1,res2) << endl;
+	// cout << CalculateStrategy3->calculateResult(res1,res2) << endl;
 }

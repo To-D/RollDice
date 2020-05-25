@@ -5,6 +5,7 @@
  */
 #include <string>
 #include "DiceRolling.h"
+#include <vector>
 
 #ifndef Hall_H
 #define Hall_H
@@ -12,10 +13,18 @@
 using namespace std;
 
 class Hall{
+    private:
+    vector<User> users;
+    vector<DiceRolling> games;
+    void printRegisterPromt();
+    void printStartPromt();    
+    DiceRolling currentGame;
+
     public:
     Hall();
-    ~Hall();
-    DiceRolling start(int gameIndex);
+    void signUp();
+    void invite();
+    DiceRolling startOneGame();
 };
 
 #endif
